@@ -19,7 +19,7 @@ public class Controller implements KeyListener {
 
 	public Controller() {
 		managerGame = new ManagerGame();
-		managerGame.enemyList(2);
+		managerGame.enemyList(6);
 		principalFrame = new PrincipalFrame(this, managerGame.getPlayer(), managerGame.getEnemyList());
 		start();
 	}

@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import controller.ConstantList;
@@ -9,6 +8,7 @@ public class ManagerGame extends MyThread {
 
 	private Player player;
 	private ArrayList<Enemy> enemyList;
+	private ArrayList<Shoot> shotList;
 
 	public ManagerGame() {
 		super("");
@@ -20,6 +20,10 @@ public class ManagerGame extends MyThread {
 		for (int i = 0; i < num; i++) {
 			enemyList.add(new Enemy());
 		}
+	}
+	
+	public void newShoot(int x, int y, int width, int height) {
+		shotList.add(new Shoot(x, y, width, height));
 	}
 
 	public void movePlayer(int code) {
@@ -78,7 +82,7 @@ public class ManagerGame extends MyThread {
 		boolean crash = false;
 		while (!crash) {
 			try {
-				Thread.sleep(10);
+				Thread.sleep(8);
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
 			}
