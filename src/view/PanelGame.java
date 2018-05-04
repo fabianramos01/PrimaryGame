@@ -34,5 +34,6 @@ public class PanelGame extends JPanel {
 		super.paint(g);
 		g.drawImage(playerImage.getImage(), player.getPositionX(), player.getPositionY(), null);
 		g.drawImage(enemyImage.getImage(), enemy.getPositionX(), enemy.getPositionY(), null);
+		repaint();
 	}
 }

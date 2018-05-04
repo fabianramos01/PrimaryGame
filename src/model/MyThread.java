@@ -1,6 +1,5 @@
 package model;
 
-
 public class MyThread implements Runnable{
 
 	private Thread thread;
@@ -9,39 +8,28 @@ public class MyThread implements Runnable{
 	private boolean stop;
 	private boolean pause;
 	
-	public MyThread(String text, int sleep) {
+	public MyThread(String text) {
 		this.text = text;
-		this.sleep = sleep;
 		thread = new Thread(this);
+	}
+	
+	public void setSleep(int sleep) {
+		this.sleep = sleep;
 	}
 	
 	@Override
 	public void run() {
 		while (!stop) {
 			System.out.println(text);
-			try {
-				Thread.sleep(sleep);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			synchronized (this) {
-				if (stop) {
-					break;
-				}
-				while (pause) {
-					try {
-						wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
 		}
 	}
 	
 	public void start() {
 		thread.start();
+	}
+	
+	public int getSleep() {
+		return sleep;
 	}
 	
 	public synchronized void stop() {
@@ -57,6 +45,14 @@ public class MyThread implements Runnable{
 	public synchronized void resume() {
 		pause = false;
 		notify();
+	}
+	
+	public boolean isPause() {
+		return pause;
+	}
+	
+	public boolean isStop() {
+		return stop;
 	}
 	
 	public Thread getThread() {

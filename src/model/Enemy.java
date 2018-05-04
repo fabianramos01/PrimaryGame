@@ -13,23 +13,21 @@ public class Enemy{
 	public Enemy() {
 		Random random = new Random();
 		id = random.nextInt((int) ConstantList.WIDTH);
-		positionX = random.nextInt((int) ConstantList.WIDTH);
-		positionY = random.nextInt((int) ConstantList.HEIGHT);
 	}
 	
 	public void move(Direction direction) {
 		switch (direction) {
 		case DOWN:
-			positionY += ConstantList.MOVE_UNITS;
+			positionY += ConstantList.MOVE_ENEMY;
 			break;
 		case LEFT:
-			positionX -= ConstantList.MOVE_UNITS;
+			positionX -= ConstantList.MOVE_ENEMY;
 			break;
 		case RIGHT:
-			positionX += ConstantList.MOVE_UNITS;
+			positionX += ConstantList.MOVE_ENEMY;
 			break;
 		case UP:
-			positionY -= ConstantList.MOVE_UNITS;
+			positionY -= ConstantList.MOVE_ENEMY;
 			break;
 		}
 	}
