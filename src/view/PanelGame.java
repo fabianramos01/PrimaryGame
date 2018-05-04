@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -16,13 +17,13 @@ public class PanelGame extends JPanel {
 	private ImageIcon playerImage;
 	private ImageIcon enemyImage;
 	private Player player;
-	private Enemy enemy;
+	private ArrayList<Enemy> enemyList;
 	
-	public PanelGame(KeyListener listener, Player player, Enemy enemy) {
+	public PanelGame(KeyListener listener, Player player, ArrayList<Enemy> enemyList) {
 		addKeyListener(listener);
 		setFocusable(true);
 		this.player = player;
-		this.enemy = enemy;
+		this.enemyList = enemyList;
 		playerImage = new ImageIcon(getClass().getResource(ConstantList.PLAYER_IMG));
 		playerImage = UtilityList.scaledImage(playerImage, ConstantList.PLAYER_SIZE, ConstantList.PLAYER_SIZE);
 		enemyImage = new ImageIcon(getClass().getResource(ConstantList.ENEMY_IMG));
@@ -33,7 +34,9 @@ public class PanelGame extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.drawImage(playerImage.getImage(), player.getPositionX(), player.getPositionY(), null);
-		g.drawImage(enemyImage.getImage(), enemy.getPositionX(), enemy.getPositionY(), null);
+		for (Enemy enemy : enemyList) {
+			g.drawImage(enemyImage.getImage(), enemy.getPositionX(), enemy.getPositionY(), null);			
+		}
 		repaint();
 	}
 }

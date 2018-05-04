@@ -13,6 +13,8 @@ public class Enemy{
 	public Enemy() {
 		Random random = new Random();
 		id = random.nextInt((int) ConstantList.WIDTH);
+		positionX = random.nextInt((int) ConstantList.WIDTH-300);
+		positionY = random.nextInt((int) ConstantList.HEIGHT-300);
 	}
 	
 	public void move(Direction direction) {

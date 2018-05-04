@@ -6,7 +6,7 @@ public class ConstantList {
 
 	public static final String TITLE = "FirstGame";
 	public static final String ICON_GAME = "/data/iconGame.png";
-	public static final Font AGENCY_FB = new Font("Agency FB", Font.BOLD, 20);
+	public static final Font AGENCY_FB = new Font("Agency FB", Font.BOLD, 30);
 	
 	public static final double WIDTH = 1000;
 	public static final double HEIGHT = 1200;

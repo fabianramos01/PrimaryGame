@@ -19,13 +19,14 @@ public class Controller implements KeyListener {
 
 	public Controller() {
 		managerGame = new ManagerGame();
-		principalFrame = new PrincipalFrame(this, managerGame.getPlayer(), managerGame.getEnemy());
+		managerGame.enemyList(2);
+		principalFrame = new PrincipalFrame(this, managerGame.getPlayer(), managerGame.getEnemyList());
 		start();
 	}
-	
+
 	private void start() {
 		timer = new Timer(ConstantList.REFRESH_TIME, new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				time++;

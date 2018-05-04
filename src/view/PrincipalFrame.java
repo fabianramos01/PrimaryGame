@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -18,14 +19,15 @@ public class PrincipalFrame extends JFrame {
 	private PanelGame panelGame;
 	private JLabel labelTime;
 	
-	public PrincipalFrame(KeyListener listener, Player player, Enemy enemy) {
+	public PrincipalFrame(KeyListener listener, Player player, ArrayList<Enemy> enemyList) {
 		setTitle(ConstantList.TITLE);
 		setLayout(new BorderLayout());
 		setIconImage(new ImageIcon(getClass().getResource(ConstantList.ICON_GAME)).getImage());
-		panelGame = new PanelGame(listener, player, enemy);
+		panelGame = new PanelGame(listener, player, enemyList);
 		add(panelGame, BorderLayout.CENTER);
 		labelTime = new JLabel("0" + ConstantList.TIME_UNIT);
 		labelTime.setHorizontalAlignment(JLabel.CENTER);
+		labelTime.setFont(ConstantList.AGENCY_FB);
 		add(labelTime, BorderLayout.SOUTH);
 		setLocationRelativeTo(null);
 		setExtendedState(MAXIMIZED_BOTH);
