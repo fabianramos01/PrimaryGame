@@ -10,8 +10,16 @@ public class ManagerGame {
 		player = new Player();
 	}
 	
-	public void movePlayer(Direction direction) {
-		player.move(direction);
+	public void movePlayer(int code) {
+		if (code == 37) {
+			player.move(Direction.LEFT);
+		} else if (code == 38) {
+			player.move(Direction.UP);
+		} else if (code == 39) {
+			player.move(Direction.RIGHT);
+		} else if (code == 40) {
+			player.move(Direction.DOWN);
+		}
 	}
 	
 	public Enemy getEnemy() {
