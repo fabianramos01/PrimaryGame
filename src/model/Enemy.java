@@ -4,14 +4,13 @@ import java.util.Random;
 
 import controller.ConstantList;
 
-public class Enemy extends MyThread{
+public class Enemy{
 
 	private int id;
 	private int positionX;
 	private int positionY;
 	
 	public Enemy() {
-		super("", ConstantList.SLEEP);
 		Random random = new Random();
 		id = random.nextInt((int) ConstantList.WIDTH);
 		positionX = random.nextInt((int) ConstantList.WIDTH);
@@ -33,11 +32,6 @@ public class Enemy extends MyThread{
 			positionY -= ConstantList.MOVE_UNITS;
 			break;
 		}
-	}
-	
-	@Override
-	public void run() {
-		
 	}
 	
 	public int getPositionX() {
