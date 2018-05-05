@@ -4,6 +4,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/UtilitiesUI.jar"/>
 	<classpathentry kind="lib" path="lib/jdom-2.0.6.jar"/>
-	<classpathentry kind="lib" path="lib/MyThread.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

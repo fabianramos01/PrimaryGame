@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import controller.ConstantList;
 
@@ -10,6 +11,7 @@ public class ManagerGame extends MyThread {
 	private Player player;
 	private ArrayList<Enemy> enemyList;
 	private ArrayList<Shoot> shootList;
+	private boolean crash;
 
 	public ManagerGame() {
 		super("", ConstantList.SLEEP);
@@ -102,15 +104,23 @@ public class ManagerGame extends MyThread {
 			enemy.move(Direction.DOWN);
 		}
 	}
-
-	@Override
-	public void run() {
-
+	
+	public void pauseGame() {
+		pause();
+		for (Shoot shoot : shootList) {
+			shoot.pause();
+		}
 	}
-
+	
+	public void resumeGame() {
+		resume();
+		for (Shoot shoot : shootList) {
+			shoot.resume();
+		}
+	}
+	
 	@Override
-	void executeTask() {
-		boolean crash = false;
+	public void execute() {
 		if (!crash) {
 			enemyCrash();
 			shotEnemy();

@@ -31,20 +31,7 @@ public class Shoot extends MyThread {
 	}
 	
 	@Override
-	public void run() {
-		while (positionX + ConstantList.ATTACK_SIZE_IMG < widthArea) {
-			try {
-				Thread.sleep(ConstantList.SLEEP_SHOOT);
-			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
-			}
-			move();
-		}
-		stop();
-	}
-
-	@Override
-	void executeTask() {
+	public void execute() {
 		if (positionX + ConstantList.ATTACK_SIZE_IMG < widthArea) {
 			move();
 		} else {

@@ -25,6 +25,7 @@ public class ConstantList {
 	public static final String ENEMY_IMG = "/data/enemy.png";
 	public static final String ATTACK_IMG = "/data/attack.png";
 	public static final String GAME_OVER_IMG = "/data/gameOver.png";
+	public static final String CURSOR_IMG = "/data/cursor.png";
 	public static final int MOVE_ENEMY = 1;
 	public static final int REFRESH_TIME = 10;
 	public static final String TIME_UNIT = " seg";

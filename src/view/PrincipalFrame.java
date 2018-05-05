@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -9,7 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import controller.CommandList;
 import controller.ConstantList;
+import controller.Controller;
 import model.Enemy;
 import model.Player;
 import model.Shoot;
@@ -18,31 +19,43 @@ public class PrincipalFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private PanelGame panelGame;
+	private ToolBarAction toBarAction;
 	private JLabel labelTime;
 
-	public PrincipalFrame(KeyListener listener, Player player, ArrayList<Enemy> enemyList, ArrayList<Shoot> shootList) {
+	public PrincipalFrame(Controller listener, Player player, ArrayList<Enemy> enemyList, ArrayList<Shoot> shootList) {
 		setTitle(ConstantList.TITLE);
 		setLayout(new BorderLayout());
 		setIconImage(new ImageIcon(getClass().getResource(ConstantList.ICON_GAME)).getImage());
 		panelGame = new PanelGame(listener, player, enemyList, shootList);
 		add(panelGame, BorderLayout.CENTER);
-		labelTime = new JLabel("0" + ConstantList.TIME_UNIT);
-		labelTime.setHorizontalAlignment(JLabel.CENTER);
-		labelTime.setFont(ConstantList.AGENCY_FB);
-		add(labelTime, BorderLayout.SOUTH);
+		init(listener);
 		setLocationRelativeTo(null);
 		setExtendedState(MAXIMIZED_BOTH);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	private void init(Controller listener) {
+		labelTime = new JLabel("0" + ConstantList.TIME_UNIT);
+		labelTime.setHorizontalAlignment(JLabel.CENTER);
+		labelTime.setFont(ConstantList.AGENCY_FB);
+		add(labelTime, BorderLayout.SOUTH);
+		toBarAction = new ToolBarAction(listener);
+		add(toBarAction, BorderLayout.NORTH);
 	}
 
 	public void refreshTime(int time) {
 		labelTime.setText(time + ConstantList.TIME_UNIT);
 		revalidate();
 	}
-	
+
 	public void loadGame() {
 		panelGame.repaint();
+	}
+	
+	public void changeCommand(CommandList command) {
+		toBarAction.setCommand(command);
+		revalidate();
 	}
 
 	public void gameOver() {

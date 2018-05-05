@@ -12,7 +12,7 @@ import javax.swing.Timer;
 import model.ManagerGame;
 import view.PrincipalFrame;
 
-public class Controller implements KeyListener, MouseListener {
+public class Controller implements KeyListener, MouseListener, ActionListener {
 
 	private ManagerGame managerGame;
 	private PrincipalFrame principalFrame;
@@ -44,7 +44,7 @@ public class Controller implements KeyListener, MouseListener {
 			}
 		});
 		timer.start();
-		managerGame.run();
+		managerGame.start();
 	}
 
 	@Override
@@ -86,5 +86,23 @@ public class Controller implements KeyListener, MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch (CommandList.valueOf(e.getActionCommand())) {
+		case COMMAND_PLAY:
+			managerGame.resume();
+			principalFrame.changeCommand(CommandList.COMMAND_PAUSE);
+			timer.start();
+			break;
+		case COMMAND_PAUSE:
+			managerGame.pause();
+			principalFrame.changeCommand(CommandList.COMMAND_PLAY);
+			timer.stop();
+			break;
+		case COMMAND_EXIT:
+			break;
+		}
 	}
 }
