@@ -1,28 +1,54 @@
 package model;
 
-public class Shoot {
+import controller.ConstantList;
+
+public class Shoot extends MyThread {
 
 	private int positionX;
 	private int positionY;
 	private int widthArea;
 	private int heightArea;
-	
-	public Shoot(int positionX, int positionY, int widthArea, int heightArea) {
+
+	public Shoot(int sleep, int positionX, int positionY, int widthArea, int heightArea) {
+		super("", sleep);
 		this.positionX = positionX;
 		this.positionY = positionY;
 		this.widthArea = widthArea;
 		this.heightArea = heightArea;
+		start();
 	}
-	
+
 	public void move() {
-		
+		positionX+= ConstantList.ATTACK_MOVE;
 	}
-	
+
 	public int getPositionX() {
 		return positionX;
 	}
-	
+
 	public int getPositionY() {
 		return positionY;
+	}
+	
+	@Override
+	public void run() {
+		while (positionX + ConstantList.ATTACK_SIZE_IMG < widthArea) {
+			try {
+				Thread.sleep(ConstantList.SLEEP_SHOOT);
+			} catch (InterruptedException e) {
+				System.out.println(e.getMessage());
+			}
+			move();
+		}
+		stop();
+	}
+
+	@Override
+	void executeTask() {
+		if (positionX + ConstantList.ATTACK_SIZE_IMG < widthArea) {
+			move();
+		} else {
+			stop();
+		}
 	}
 }

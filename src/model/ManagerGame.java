@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import controller.ConstantList;
@@ -8,12 +9,13 @@ public class ManagerGame extends MyThread {
 
 	private Player player;
 	private ArrayList<Enemy> enemyList;
-	private ArrayList<Shoot> shotList;
+	private ArrayList<Shoot> shootList;
 
 	public ManagerGame() {
-		super("");
+		super("", ConstantList.SLEEP);
 		enemyList = new ArrayList<>();
 		player = new Player();
+		shootList = new ArrayList<>();
 	}
 
 	public void enemyList(int num) {
@@ -21,9 +23,9 @@ public class ManagerGame extends MyThread {
 			enemyList.add(new Enemy());
 		}
 	}
-	
+
 	public void newShoot(int x, int y, int width, int height) {
-		shotList.add(new Shoot(x, y, width, height));
+		shootList.add(new Shoot(ConstantList.SLEEP_SHOOT, player.getPositionX(), player.getPositionY(), width, height));
 	}
 
 	public void movePlayer(int code) {
@@ -37,7 +39,7 @@ public class ManagerGame extends MyThread {
 			player.move(Direction.DOWN);
 		}
 	}
-	
+
 	private void enemyCrash() {
 		for (Enemy enemy : enemyList) {
 			validateCrash(enemy);
@@ -45,19 +47,43 @@ public class ManagerGame extends MyThread {
 	}
 
 	private void validateCrash(Enemy enemy) {
-		if (((enemy.getPositionX() <= player.getPositionX()
-				&& player.getPositionX() <= enemy.getPositionX() + ConstantList.ENEMY_SIZE)
-				|| (enemy.getPositionX() <= player.getPositionX() + ConstantList.PLAYER_SIZE && player.getPositionX()
-						+ ConstantList.PLAYER_SIZE <= enemy.getPositionX() + ConstantList.ENEMY_SIZE))
-				&& ((enemy.getPositionY() <= player.getPositionY()
-						&& player.getPositionY() <= enemy.getPositionY() + ConstantList.ENEMY_SIZE)
-						|| (enemy.getPositionY() <= player.getPositionY() + ConstantList.PLAYER_SIZE
-								&& player.getPositionY() + ConstantList.PLAYER_SIZE <= enemy.getPositionY()
-										+ ConstantList.ENEMY_SIZE))) {
+		Rectangle rectangleEnemy = new Rectangle(enemy.getPositionX(), enemy.getPositionY(), ConstantList.ENEMY_SIZE,
+				ConstantList.ENEMY_SIZE);
+		Rectangle rectanglePlayer = new Rectangle(player.getPositionX(), player.getPositionY(),
+				ConstantList.PLAYER_SIZE, ConstantList.PLAYER_SIZE);
+		if (rectanglePlayer.intersects(rectangleEnemy)) {
 			stop();
 		}
 	}
-	
+
+	private void shotEnemy() {
+		for (Shoot shoot : shootList) {
+			for (Enemy enemy : enemyList) {
+				shootCrash(shoot, enemy);
+			}
+		}
+	}
+
+	private void deleteAttack() {
+		for (Shoot shoot : shootList) {
+			if (shoot.isStop()) {
+				shootList.remove(shoot);
+			}
+		}
+	}
+
+	private void shootCrash(Shoot shoot, Enemy enemy) {
+		Rectangle rectangleEnemy = new Rectangle(enemy.getPositionX(), enemy.getPositionY(), ConstantList.ENEMY_SIZE,
+				ConstantList.ENEMY_SIZE);
+		Rectangle rectangleShoot = new Rectangle(shoot.getPositionX(), shoot.getPositionY(), ConstantList.ATTACK_SIZE,
+				ConstantList.ATTACK_SIZE);
+		if (rectangleShoot.intersects(rectangleEnemy)) {
+			shoot.stop();
+			shootList.remove(shoot);
+			enemyList.remove(enemy);
+		}
+	}
+
 	private void enemyListMove() {
 		for (Enemy enemy : enemyList) {
 			moveEnemy(enemy);
@@ -79,15 +105,17 @@ public class ManagerGame extends MyThread {
 
 	@Override
 	public void run() {
+
+	}
+
+	@Override
+	void executeTask() {
 		boolean crash = false;
-		while (!crash) {
-			try {
-				Thread.sleep(8);
-			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
-			}
+		if (!crash) {
 			enemyCrash();
+			shotEnemy();
 			enemyListMove();
+			deleteAttack();
 			crash = isStop();
 		}
 	}
@@ -98,5 +126,9 @@ public class ManagerGame extends MyThread {
 
 	public ArrayList<Enemy> getEnemyList() {
 		return enemyList;
+	}
+
+	public ArrayList<Shoot> getShootList() {
+		return shootList;
 	}
 }
