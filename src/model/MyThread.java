@@ -66,6 +66,10 @@ public abstract class MyThread implements Runnable {
 	public String getText() {
 		return text;
 	}
+	
+	public int getSleep() {
+		return sleep;
+	}
 
 	public boolean isPause() {
 		return pause;

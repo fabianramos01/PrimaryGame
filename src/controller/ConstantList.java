@@ -31,5 +31,24 @@ public class ConstantList {
 	public static final String TIME_UNIT = " seg";
 	protected static final int MIL_SEG = 1000;
 	public static final int ATTACK_MOVE = 5;
+	
+	public static final String PLAYER_FILE = "lastGame/playerFile.xml";
+	public static final String SHOOT_FILE = "lastGame/shootFile.xml";
+	public static final String ENEMY_FILE = "lastGame/enemyFile.xml";
+	public static final String TIME_FILE = "lastGame/timeFile.my";
+	public static final String CHILDREN_ENEMY = "Enemy";
+	public static final String CHILDREN_PLAYER = "Player";
+	public static final String CHILDREN_SHOOT = "Shoot";
+	public static final String ROOT_ELEMENT = "Game";
+	public static final String ID = "Id";
+	public static final String SLEEP_ELEMENT = "Sleep";
+	public static final String POSITION_X = "PositionX";
+	public static final String POSITION_Y = "PositionY";
+	public static final String LIFE = "Life";
 
+	public static final String SAVE_TIME = "Tiempo de autoguardado (seg)";
+	public static final Object LOAD_GAME = "Cargar juego previo";
+	public static final int LIFE_LIM = 100;
+	public static final int LIFE_LESS = 20;
+	
 }

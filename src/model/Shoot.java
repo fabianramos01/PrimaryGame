@@ -8,6 +8,12 @@ public class Shoot extends MyThread {
 	private int positionY;
 	private int widthArea;
 	private int heightArea;
+	
+	public Shoot(int sleep, int positionX, int positionY) {
+		super("", sleep);
+		this.positionX = positionX;
+		this.positionY = positionY;
+	}
 
 	public Shoot(int sleep, int positionX, int positionY, int widthArea, int heightArea) {
 		super("", sleep);
@@ -20,6 +26,14 @@ public class Shoot extends MyThread {
 
 	public void move() {
 		positionX+= ConstantList.ATTACK_MOVE;
+	}
+	
+	public void setWidthArea(int widthArea) {
+		this.widthArea = widthArea;
+	}
+
+	public void setHeightArea(int heightArea) {
+		this.heightArea = heightArea;
 	}
 
 	public int getPositionX() {

@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import controller.ConstantList;
 
@@ -18,6 +17,12 @@ public class ManagerGame extends MyThread {
 		enemyList = new ArrayList<>();
 		player = new Player();
 		shootList = new ArrayList<>();
+	}
+	
+	public void loadGame(Player player, ArrayList<Enemy> enemys, ArrayList<Shoot> shoots) {
+		this.player = player;
+		this.enemyList = enemys;
+		this.shootList = shoots;
 	}
 
 	public void enemyList(int num) {
@@ -45,6 +50,10 @@ public class ManagerGame extends MyThread {
 	private void enemyCrash() {
 		for (Enemy enemy : enemyList) {
 			validateCrash(enemy);
+			if (player.getLife() <= 0) {
+				stop();
+				break;
+			}
 		}
 	}
 
@@ -54,7 +63,7 @@ public class ManagerGame extends MyThread {
 		Rectangle rectanglePlayer = new Rectangle(player.getPositionX(), player.getPositionY(),
 				ConstantList.PLAYER_SIZE, ConstantList.PLAYER_SIZE);
 		if (rectanglePlayer.intersects(rectangleEnemy)) {
-			stop();
+			player.lessLife();
 		}
 	}
 

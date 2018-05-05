@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import javax.swing.Timer;
 
 import model.ManagerGame;
+import persistence.FileManager;
 import view.PrincipalFrame;
 
 public class Controller implements KeyListener, MouseListener, ActionListener {
@@ -17,17 +18,40 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 	private ManagerGame managerGame;
 	private PrincipalFrame principalFrame;
 	private Timer timer;
+	private Timer timerSave;
 	private int time;
 
 	public Controller() {
 		managerGame = new ManagerGame();
-		managerGame.enemyList(2);
-		principalFrame = new PrincipalFrame(this, managerGame.getPlayer(), managerGame.getEnemyList(),
-				managerGame.getShootList());
-		start();
+		principalFrame = new PrincipalFrame();
+		init();
+	}
+	
+	private void init() {
+		if (principalFrame.lastGame()) {
+			time = FileManager.loadTime();
+			managerGame.loadGame(FileManager.loadPlayer(), FileManager.loadEnemy(), FileManager.loadShoot());
+		} else {
+			managerGame.enemyList(2);
+		}
+		save();
 	}
 
+	private void save() {
+		timerSave = new Timer(principalFrame.saveTime()*ConstantList.MIL_SEG, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				FileManager.saveGame(managerGame.getPlayer(), managerGame.getEnemyList(), time,
+						managerGame.getShootList());
+			}
+		});
+		timerSave.start();
+		start();
+	}
+	
 	private void start() {
+		principalFrame.loadGame(this, managerGame.getPlayer(), managerGame.getEnemyList(), managerGame.getShootList());
 		timer = new Timer(ConstantList.REFRESH_TIME, new ActionListener() {
 
 			@Override

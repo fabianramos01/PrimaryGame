@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import controller.CommandList;
 import controller.ConstantList;
@@ -22,19 +23,22 @@ public class PrincipalFrame extends JFrame {
 	private ToolBarAction toBarAction;
 	private JLabel labelTime;
 
-	public PrincipalFrame(Controller listener, Player player, ArrayList<Enemy> enemyList, ArrayList<Shoot> shootList) {
+	public PrincipalFrame() {
 		setTitle(ConstantList.TITLE);
 		setLayout(new BorderLayout());
+		setLocationRelativeTo(null);
+		setExtendedState(MAXIMIZED_BOTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
+	public void loadGame(Controller listener, Player player, ArrayList<Enemy> enemyList, ArrayList<Shoot> shootList) {
 		setIconImage(new ImageIcon(getClass().getResource(ConstantList.ICON_GAME)).getImage());
 		panelGame = new PanelGame(listener, player, enemyList, shootList);
 		add(panelGame, BorderLayout.CENTER);
 		init(listener);
-		setLocationRelativeTo(null);
-		setExtendedState(MAXIMIZED_BOTH);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	
+
 	private void init(Controller listener) {
 		labelTime = new JLabel("0" + ConstantList.TIME_UNIT);
 		labelTime.setHorizontalAlignment(JLabel.CENTER);
@@ -52,7 +56,7 @@ public class PrincipalFrame extends JFrame {
 	public void loadGame() {
 		panelGame.repaint();
 	}
-	
+
 	public void changeCommand(CommandList command) {
 		toBarAction.setCommand(command);
 		revalidate();
@@ -66,5 +70,14 @@ public class PrincipalFrame extends JFrame {
 		jDialog.setLocationRelativeTo(null);
 		jDialog.add(new JLabel(imageIcon));
 		jDialog.setVisible(true);
+	}
+
+	public boolean lastGame() {
+		return JOptionPane.showConfirmDialog(null, ConstantList.LOAD_GAME, ConstantList.TITLE,
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION ? true : false;
+	}
+
+	public int saveTime() {
+		return Integer.parseInt(JOptionPane.showInputDialog(ConstantList.SAVE_TIME));
 	}
 }

@@ -17,6 +17,15 @@ public class Enemy{
 		positionY = random.nextInt((int) ConstantList.HEIGHT-300);
 	}
 	
+	public Enemy(int id, int positionX, int positionY) {
+		super();
+		this.id = id;
+		this.positionX = positionX;
+		this.positionY = positionY;
+	}
+
+
+
 	public void move(Direction direction) {
 		switch (direction) {
 		case DOWN:
