@@ -8,6 +8,7 @@ public class Enemy{
 
 	private int id;
 	private EnemyType enemyType;
+	private int life;
 	private int positionX;
 	private int positionY;
 	
@@ -17,11 +18,13 @@ public class Enemy{
 		id = random.nextInt((int) ConstantList.WIDTH);
 		positionX = random.nextInt((int) ConstantList.WIDTH-300);
 		positionY = random.nextInt((int) ConstantList.HEIGHT-300);
+		life = enemyType.getLife();
 	}
 	
-	public Enemy( int id, EnemyType enemyType, int positionX, int positionY) {
+	public Enemy(int id, EnemyType enemyType, int life, int positionX, int positionY) {
 		this.enemyType = enemyType;
 		this.id = id;
+		this.life = life;
 		this.positionX = positionX;
 		this.positionY = positionY;
 	}
@@ -43,6 +46,10 @@ public class Enemy{
 		}
 	}
 	
+	public void lessLife() {
+		life -= ConstantList.LIFE_LESS_ENEMY;
+	}
+	
 	public int getPositionX() {
 		return positionX;
 	}
@@ -57,5 +64,9 @@ public class Enemy{
 	
 	public EnemyType getEnemyType() {
 		return enemyType;
+	}
+	
+	public int getLife() {
+		return life;
 	}
 }

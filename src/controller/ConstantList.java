@@ -11,18 +11,19 @@ public class ConstantList {
 	public static final double WIDTH = 1200;
 	public static final double HEIGHT = 900;
 	
-	public static final int PLAYER_SIZE_IMG = 100;
+	public static final int PLAYER_SIZE_IMG = 200;
 	public static final int ENEMY_SIZE_IMG = 80;
-	public static final int ATTACK_SIZE_IMG = 30;
+	public static final int ATTACK_SIZE_IMG = 50;
 	public static final int PLAYER_SIZE = 75;
 	public static final int ENEMY_SIZE = 60;
-	public static final int ATTACK_SIZE = 27;
+	public static final int ATTACK_SIZE = 35;
 	public static final int MOVE_UNITS = 10;
 	public static final int SLEEP = 10;
 	public static final int SLEEP_SHOOT = 5;
 	
 	public static final String PLAYER_IMG = "/data/player.png";
-	public static final String ENEMY_IMG = "/data/enemy.png";
+	public static final String ENEMY_IMG = "/data/primary_enemy.png";
+	public static final String MASTER_ENEMY_IMG = "/data/enemy.png";
 	public static final String ATTACK_IMG = "/data/attack.png";
 	public static final String GAME_OVER_IMG = "/data/gameOver.png";
 	public static final String CURSOR_IMG = "/data/cursor.png";
@@ -48,10 +49,10 @@ public class ConstantList {
 	public static final String LIFE = "Life";
 
 	public static final String SAVE_TIME = "Tiempo de autoguardado (seg)";
-	public static final Object LOAD_GAME = "Cargar juego previo";
+	public static final Object LOAD_GAME = "Cargar última partida";
 	public static final int LIFE_LIM = 100;
-	public static final int LIFE_LESS = 2;
+	public static final int LIFE_LESS_PLAYER = 2;
+	public static final int LIFE_LESS_ENEMY = 1;
 	public static final int HEIGHT_REC = 70;
-	public static final int WIDTH_REC = 150;
-	
+	public static final int WIDTH_REC = 150;	
 }

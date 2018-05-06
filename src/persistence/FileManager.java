@@ -58,10 +58,11 @@ public class FileManager {
 			for (Element element : enemyList) {
 				int id = Integer.parseInt(element.getChildTextTrim(ConstantList.ID));
 				EnemyType enemyType = element.getChildTextTrim(ConstantList.ENEMY_TYPE)
-						.equals(EnemyType.NORMAL.toString()) ? EnemyType.NORMAL : EnemyType.MASTER;
+						.equals(EnemyType.NORMAL.getType()) ? EnemyType.NORMAL : EnemyType.MASTER;
+				int life = Integer.parseInt(element.getChildTextTrim(ConstantList.LIFE));
 				int positionX = Integer.parseInt(element.getChildTextTrim(ConstantList.POSITION_X));
 				int positionY = Integer.parseInt(element.getChildTextTrim(ConstantList.POSITION_Y));
-				list.add(new Enemy(id, enemyType, positionX, positionY));
+				list.add(new Enemy(id, enemyType, life, positionX, positionY));
 			}
 		} catch (IOException io) {
 			System.out.println(io.getMessage());
@@ -148,13 +149,16 @@ public class FileManager {
 		for (Enemy actualEnemy : list) {
 			Element id = new Element(ConstantList.ID).setText(String.valueOf(actualEnemy.getId()));
 			Element type = new Element(ConstantList.ENEMY_TYPE)
-					.setText(String.valueOf(actualEnemy.getEnemyType().toString()));
+					.setText(String.valueOf(actualEnemy.getEnemyType().getType()));
+			Element life = new Element(ConstantList.LIFE)
+					.setText(String.valueOf(actualEnemy.getLife()));
 			Element positionX = new Element(ConstantList.POSITION_X)
 					.setText(String.valueOf(actualEnemy.getPositionX()));
 			Element positionY = new Element(ConstantList.POSITION_Y)
 					.setText(String.valueOf(actualEnemy.getPositionY()));
 			enemy.addContent(id);
 			enemy.addContent(type);
+			enemy.addContent(life);
 			enemy.addContent(positionX);
 			enemy.addContent(positionY);
 			doc.getRootElement().addContent(enemy);

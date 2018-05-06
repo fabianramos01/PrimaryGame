@@ -45,7 +45,7 @@ public class Player {
 	}
 	
 	public void lessLife() {
-		life -= ConstantList.LIFE_LESS;
+		life -= ConstantList.LIFE_LESS_PLAYER;
 	}
 	
 	public int getPositionX() {

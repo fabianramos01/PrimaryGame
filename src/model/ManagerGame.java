@@ -18,7 +18,7 @@ public class ManagerGame extends MyThread {
 		player = new Player();
 		shootList = new ArrayList<>();
 	}
-	
+
 	public void loadGame(Player player, ArrayList<Enemy> enemys, ArrayList<Shoot> shoots) {
 		this.player = player;
 		this.enemyList = enemys;
@@ -69,16 +69,11 @@ public class ManagerGame extends MyThread {
 
 	private void shotEnemy() {
 		for (Shoot shoot : shootList) {
-			for (Enemy enemy : enemyList) {
-				shootCrash(shoot, enemy);
-			}
-		}
-	}
-
-	private void deleteAttack() {
-		for (Shoot shoot : shootList) {
-			if (shoot.isStop()) {
-				shootList.remove(shoot);
+			for (int i = 0; i < enemyList.size(); i++) {
+				shootCrash(shoot, enemyList.get(i));
+				if (enemyList.get(i).getLife() == 0) {
+					enemyList.remove(i);
+				}
 			}
 		}
 	}
@@ -90,8 +85,15 @@ public class ManagerGame extends MyThread {
 				ConstantList.ATTACK_SIZE);
 		if (rectangleShoot.intersects(rectangleEnemy)) {
 			shoot.stop();
-			shootList.remove(shoot);
-			enemyList.remove(enemy);
+			enemy.lessLife();
+		}
+	}
+
+	private void deleteAttack() {
+		for (int i = 0; i < shootList.size(); i++) {
+			if (shootList.get(i).isStop()) {
+				shootList.remove(i);
+			}
 		}
 	}
 
@@ -113,29 +115,32 @@ public class ManagerGame extends MyThread {
 			enemy.move(Direction.DOWN);
 		}
 	}
-	
+
 	public void pauseGame() {
 		pause();
 		for (Shoot shoot : shootList) {
 			shoot.pause();
 		}
 	}
-	
+
 	public void resumeGame() {
 		resume();
 		for (Shoot shoot : shootList) {
 			shoot.resume();
 		}
 	}
-	
+
 	@Override
 	public void execute() {
 		if (!crash) {
 			enemyCrash();
 			shotEnemy();
 			enemyListMove();
-//			deleteAttack();
+			deleteAttack();
 			crash = isStop();
+			if (enemyList.isEmpty()) {
+
+			}
 		}
 	}
 

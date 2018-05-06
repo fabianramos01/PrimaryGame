@@ -26,20 +26,20 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 		principalFrame = new PrincipalFrame();
 		init();
 	}
-	
+
 	private void init() {
 		if (principalFrame.lastGame()) {
 			time = FileManager.loadTime();
 			managerGame.loadGame(FileManager.loadPlayer(), FileManager.loadEnemy(), FileManager.loadShoot());
 		} else {
-			managerGame.enemyList(2);
+			managerGame.enemyList(6);
 		}
 		save();
 	}
 
 	private void save() {
-		timerSave = new Timer(principalFrame.saveTime()*ConstantList.MIL_SEG, new ActionListener() {
-			
+		timerSave = new Timer(principalFrame.saveTime() * ConstantList.MIL_SEG, new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				FileManager.saveGame(managerGame.getPlayer(), managerGame.getEnemyList(), time,
@@ -49,7 +49,7 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 		timerSave.start();
 		start();
 	}
-	
+
 	private void start() {
 		principalFrame.loadGame(this, managerGame.getPlayer(), managerGame.getEnemyList(), managerGame.getShootList());
 		timer = new Timer(ConstantList.REFRESH_TIME, new ActionListener() {
@@ -71,20 +71,24 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 		managerGame.start();
 	}
 
+	private void movePlayer(KeyEvent e) {
+		if (!managerGame.isPause()) {
+			if (e.getKeyCode() == 32) {
+				managerGame.newShoot(0, 0, principalFrame.getSize().width, principalFrame.getSize().height);
+			} else {
+				managerGame.movePlayer(e.getKeyCode());
+				principalFrame.repaint();
+			}
+		}
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		managerGame.movePlayer(e.getKeyCode());
-		principalFrame.repaint();
+		movePlayer(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == 32) {
-			managerGame.newShoot(0, 0, principalFrame.getSize().width, principalFrame.getSize().height);
-		} else {
-			managerGame.movePlayer(e.getKeyCode());
-			principalFrame.repaint();
-		}
 	}
 
 	@Override
@@ -126,6 +130,7 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 			timer.stop();
 			break;
 		case COMMAND_EXIT:
+			System.exit(0);
 			break;
 		}
 	}
