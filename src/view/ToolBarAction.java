@@ -17,15 +17,20 @@ public class ToolBarAction extends JToolBar {
 		setOpaque(false);
 		buttonPlay = UtilityList.createJButton(CommandList.COMMAND_PAUSE.getCommad(),
 				CommandList.COMMAND_PAUSE.getTitle(), CommandList.COMMAND_PAUSE.getImagePath(), listener);
+		buttonPlay.setFocusable(false);
 		add(buttonPlay);
-		add(UtilityList.createJButton(CommandList.COMMAND_EXIT.getCommad(), CommandList.COMMAND_EXIT.getTitle(),
-				CommandList.COMMAND_EXIT.getImagePath(), listener));
+		JButton buttonExit = UtilityList.createJButton(CommandList.COMMAND_EXIT.getCommad(),
+				CommandList.COMMAND_EXIT.getTitle(), CommandList.COMMAND_EXIT.getImagePath(), listener);
+		buttonExit.setFocusable(false);
+		add(buttonExit);
 		panelLife = new PanelLife(life);
 		add(panelLife);
 	}
-	
-	public void refreshLife() {
+
+	public void refreshLife(int life) {
+		panelLife.setLife(life);
 		panelLife.repaint();
+		revalidate();
 	}
 
 	public void setCommand(CommandList commandList) {

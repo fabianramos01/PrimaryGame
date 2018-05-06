@@ -49,9 +49,10 @@ public class PrincipalFrame extends JFrame {
 		revalidate();
 	}
 
-	public void loadGame() {
+	public void repaintGame(int life) {
 		panelGame.repaint();
-		toBarAction.refreshLife();
+		toBarAction.refreshLife(life);
+		revalidate();
 	}
 
 	public void changeCommand(CommandList command) {

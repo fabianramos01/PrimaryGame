@@ -60,7 +60,7 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 				if (time % ConstantList.MIL_SEG == 0) {
 					principalFrame.refreshTime(time / ConstantList.MIL_SEG);
 				}
-				principalFrame.loadGame();
+				principalFrame.repaintGame(managerGame.getPlayer().getLife());
 				if (managerGame.isStop()) {
 					principalFrame.gameOver();
 					timer.stop();

@@ -121,7 +121,7 @@ public class FileManager {
 		Document doc = new Document(root);
 		Element shoot = new Element(ConstantList.CHILDREN_SHOOT);
 		for (Shoot actualShoot : list) {
-			Element sleep = new Element(ConstantList.ID).setText(String.valueOf(actualShoot.getSleep()));
+			Element sleep = new Element(ConstantList.SLEEP_ELEMENT).setText(String.valueOf(actualShoot.getSleep()));
 			Element positionX = new Element(ConstantList.POSITION_X)
 					.setText(String.valueOf(actualShoot.getPositionX()));
 			Element positionY = new Element(ConstantList.POSITION_Y)

@@ -28,8 +28,9 @@ public class PanelGame extends JPanel {
 		this.player = player;
 		this.enemyList = enemyList;
 		this.shootList = shootList;
+		setFocusable(true);
 		addKeyListener(listener);
-		addMouseListener(listener);
+		addMouseListener (listener);
 		playerImage = new ImageIcon(getClass().getResource(ConstantList.PLAYER_IMG));
 		playerImage = UtilityList.scaledImage(playerImage, ConstantList.PLAYER_SIZE_IMG, ConstantList.PLAYER_SIZE_IMG);
 		enemyImage = new ImageIcon(getClass().getResource(ConstantList.ENEMY_IMG));
@@ -50,10 +51,5 @@ public class PanelGame extends JPanel {
 		for (Shoot shoot : shootList) {
 			g.drawImage(shootImage.getImage(), shoot.getPositionX(), shoot.getPositionY(), null);
 		}
-	}
-
-	@Override
-	public boolean isFocusable() {
-		return true;
 	}
 }

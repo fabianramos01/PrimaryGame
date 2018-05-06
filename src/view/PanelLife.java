@@ -15,6 +15,10 @@ public class PanelLife extends JPanel {
 	public PanelLife(int life) {
 		this.life = life;
 	}
+	
+	public void setLife(int life) {
+		this.life = life;
+	}
 
 	@Override
 	public void paint(Graphics g) {
