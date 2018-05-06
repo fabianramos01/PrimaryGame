@@ -35,17 +35,13 @@ public class PrincipalFrame extends JFrame {
 		setIconImage(new ImageIcon(getClass().getResource(ConstantList.ICON_GAME)).getImage());
 		panelGame = new PanelGame(listener, player, enemyList, shootList);
 		add(panelGame, BorderLayout.CENTER);
-		init(listener);
-		setVisible(true);
-	}
-
-	private void init(Controller listener) {
 		labelTime = new JLabel("0" + ConstantList.TIME_UNIT);
 		labelTime.setHorizontalAlignment(JLabel.CENTER);
 		labelTime.setFont(ConstantList.AGENCY_FB);
 		add(labelTime, BorderLayout.SOUTH);
-		toBarAction = new ToolBarAction(listener);
+		toBarAction = new ToolBarAction(listener, player.getLife());
 		add(toBarAction, BorderLayout.NORTH);
+		setVisible(true);
 	}
 
 	public void refreshTime(int time) {
@@ -55,6 +51,7 @@ public class PrincipalFrame extends JFrame {
 
 	public void loadGame() {
 		panelGame.repaint();
+		toBarAction.refreshLife();
 	}
 
 	public void changeCommand(CommandList command) {

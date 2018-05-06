@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Game><Enemy><Id>900</Id><PositionX>405</PositionX><PositionY>615</PositionY></Enemy><Enemy><Id>950</Id><PositionX>329</PositionX><PositionY>516</PositionY></Enemy></Game>
+<Game><Enemy><Id>795</Id><Type>NORMAL</Type><PositionX>218</PositionX><PositionY>17</PositionY></Enemy><Enemy><Id>324</Id><Type>NORMAL</Type><PositionX>589</PositionX><PositionY>229</PositionY></Enemy></Game>

@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -50,7 +49,6 @@ public class PanelGame extends JPanel {
 		}
 		for (Shoot shoot : shootList) {
 			g.drawImage(shootImage.getImage(), shoot.getPositionX(), shoot.getPositionY(), null);
-
 		}
 	}
 

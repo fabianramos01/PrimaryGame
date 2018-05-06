@@ -17,6 +17,7 @@ import org.jdom2.output.XMLOutputter;
 
 import controller.ConstantList;
 import model.Enemy;
+import model.EnemyType;
 import model.Player;
 import model.Shoot;
 
@@ -28,15 +29,15 @@ public class FileManager {
 		saveShoots(shoots);
 		saveTime(time);
 	}
-	
+
 	public static void saveTime(int time) {
-	    try {
+		try {
 			Files.write(Paths.get(ConstantList.TIME_FILE), String.valueOf(time).getBytes());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public static int loadTime() {
 		try {
 			return Integer.parseInt(Files.readAllLines(Paths.get(ConstantList.TIME_FILE)).get(0));
@@ -45,7 +46,7 @@ public class FileManager {
 		}
 		return 0;
 	}
-	
+
 	public static ArrayList<Enemy> loadEnemy() {
 		File file = new File(ConstantList.ENEMY_FILE);
 		ArrayList<Enemy> list = new ArrayList<>();
@@ -56,9 +57,11 @@ public class FileManager {
 			List<Element> enemyList = ((org.jdom2.Element) rootNode).getChildren(ConstantList.CHILDREN_ENEMY);
 			for (Element element : enemyList) {
 				int id = Integer.parseInt(element.getChildTextTrim(ConstantList.ID));
+				EnemyType enemyType = element.getChildTextTrim(ConstantList.ENEMY_TYPE)
+						.equals(EnemyType.NORMAL.toString()) ? EnemyType.NORMAL : EnemyType.MASTER;
 				int positionX = Integer.parseInt(element.getChildTextTrim(ConstantList.POSITION_X));
 				int positionY = Integer.parseInt(element.getChildTextTrim(ConstantList.POSITION_Y));
-				list.add(new Enemy(id, positionX, positionY));
+				list.add(new Enemy(id, enemyType, positionX, positionY));
 			}
 		} catch (IOException io) {
 			System.out.println(io.getMessage());
@@ -144,11 +147,14 @@ public class FileManager {
 		Element enemy = new Element(ConstantList.CHILDREN_ENEMY);
 		for (Enemy actualEnemy : list) {
 			Element id = new Element(ConstantList.ID).setText(String.valueOf(actualEnemy.getId()));
+			Element type = new Element(ConstantList.ENEMY_TYPE)
+					.setText(String.valueOf(actualEnemy.getEnemyType().toString()));
 			Element positionX = new Element(ConstantList.POSITION_X)
 					.setText(String.valueOf(actualEnemy.getPositionX()));
 			Element positionY = new Element(ConstantList.POSITION_Y)
 					.setText(String.valueOf(actualEnemy.getPositionY()));
 			enemy.addContent(id);
+			enemy.addContent(type);
 			enemy.addContent(positionX);
 			enemy.addContent(positionY);
 			doc.getRootElement().addContent(enemy);

@@ -7,24 +7,24 @@ import controller.ConstantList;
 public class Enemy{
 
 	private int id;
+	private EnemyType enemyType;
 	private int positionX;
 	private int positionY;
 	
-	public Enemy() {
+	public Enemy(EnemyType enemyType) {
+		this.enemyType = enemyType;
 		Random random = new Random();
 		id = random.nextInt((int) ConstantList.WIDTH);
 		positionX = random.nextInt((int) ConstantList.WIDTH-300);
 		positionY = random.nextInt((int) ConstantList.HEIGHT-300);
 	}
 	
-	public Enemy(int id, int positionX, int positionY) {
-		super();
+	public Enemy( int id, EnemyType enemyType, int positionX, int positionY) {
+		this.enemyType = enemyType;
 		this.id = id;
 		this.positionX = positionX;
 		this.positionY = positionY;
 	}
-
-
 
 	public void move(Direction direction) {
 		switch (direction) {
@@ -53,5 +53,9 @@ public class Enemy{
 	
 	public int getId() {
 		return id;
+	}
+	
+	public EnemyType getEnemyType() {
+		return enemyType;
 	}
 }

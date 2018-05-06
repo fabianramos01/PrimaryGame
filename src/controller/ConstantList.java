@@ -44,11 +44,14 @@ public class ConstantList {
 	public static final String SLEEP_ELEMENT = "Sleep";
 	public static final String POSITION_X = "PositionX";
 	public static final String POSITION_Y = "PositionY";
+	public static final String ENEMY_TYPE = "Type";
 	public static final String LIFE = "Life";
 
 	public static final String SAVE_TIME = "Tiempo de autoguardado (seg)";
 	public static final Object LOAD_GAME = "Cargar juego previo";
 	public static final int LIFE_LIM = 100;
-	public static final int LIFE_LESS = 20;
+	public static final int LIFE_LESS = 10;
+	public static final int HEIGHT_REC = 70;
+	public static final int WIDTH_REC = 150;
 	
 }

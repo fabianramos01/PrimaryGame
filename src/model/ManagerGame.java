@@ -27,7 +27,7 @@ public class ManagerGame extends MyThread {
 
 	public void enemyList(int num) {
 		for (int i = 0; i < num; i++) {
-			enemyList.add(new Enemy());
+			enemyList.add(new Enemy(EnemyType.NORMAL));
 		}
 	}
 
@@ -134,7 +134,7 @@ public class ManagerGame extends MyThread {
 			enemyCrash();
 			shotEnemy();
 			enemyListMove();
-			deleteAttack();
+//			deleteAttack();
 			crash = isStop();
 		}
 	}
