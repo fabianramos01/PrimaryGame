@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -63,6 +62,13 @@ public class PrincipalFrame extends JFrame {
 	public void gameOver() {
 		remove(panelGame);
 		JLabel labelGameOver = new JLabel(new ImageIcon(getClass().getResource(ConstantList.GAME_OVER_IMG)));
+		add(labelGameOver, BorderLayout.CENTER);
+		revalidate();
+	}
+	
+	public void playerWin() {
+		remove(panelGame);
+		JLabel labelGameOver = new JLabel(new ImageIcon(getClass().getResource(ConstantList.YOU_WIN_IMG)));
 		add(labelGameOver, BorderLayout.CENTER);
 		revalidate();
 	}

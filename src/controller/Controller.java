@@ -63,7 +63,7 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 				principalFrame.repaintGame(managerGame.getPlayer().getLife());
 				if (managerGame.isStop()) {
 					if (managerGame.getEnemyList().isEmpty()) {
-						
+						principalFrame.playerWin();
 					} else {
 						principalFrame.gameOver();
 					}
