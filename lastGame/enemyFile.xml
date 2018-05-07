@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Game><Enemy><Id>1218</Id><Type>MASTER</Type><Life>5</Life><PositionX>665</PositionX><PositionY>466</PositionY></Enemy></Game>
+<Game><Enemy><Id>1155</Id><Type>NORMAL</Type><Life>1</Life><PositionX>1387</PositionX><PositionY>315</PositionY></Enemy><Enemy><Id>1101</Id><Type>NORMAL</Type><Life>1</Life><PositionX>1387</PositionX><PositionY>316</PositionY></Enemy></Game>

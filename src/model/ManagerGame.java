@@ -11,6 +11,7 @@ public class ManagerGame extends MyThread {
 	private ArrayList<Enemy> enemyList;
 	private ArrayList<Shoot> shootList;
 	private boolean crash;
+	private boolean master;
 
 	public ManagerGame() {
 		super("", ConstantList.SLEEP);
@@ -157,8 +158,9 @@ public class ManagerGame extends MyThread {
 			shotEnemy();
 			enemyListMove();
 			deleteAttack();
-			if (enemyList.isEmpty()) {
+			if (enemyList.isEmpty() && !master) {
 				enemyList.add(new Enemy(EnemyType.MASTER));
+				master = true;
 			}
 			crash = isStop();
 		}
