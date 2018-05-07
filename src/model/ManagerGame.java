@@ -58,12 +58,16 @@ public class ManagerGame extends MyThread {
 	}
 
 	private void validateCrash(Enemy enemy) {
-		Rectangle rectangleEnemy = new Rectangle(enemy.getPositionX(), enemy.getPositionY(), ConstantList.ENEMY_SIZE,
-				ConstantList.ENEMY_SIZE);
+		Rectangle rectangleEnemy = new Rectangle(enemy.getPositionX(), enemy.getPositionY(),
+				enemy.getEnemyType().getSize(), enemy.getEnemyType().getSize());
 		Rectangle rectanglePlayer = new Rectangle(player.getPositionX(), player.getPositionY(),
 				ConstantList.PLAYER_SIZE, ConstantList.PLAYER_SIZE);
 		if (rectanglePlayer.intersects(rectangleEnemy)) {
-			player.lessLife();
+			if (enemy.getEnemyType().getType().equals(EnemyType.NORMAL.getType())) {
+				player.lessLifeEne();
+			} else {
+				player.lessLifeEneM();
+			}
 		}
 	}
 
@@ -79,13 +83,29 @@ public class ManagerGame extends MyThread {
 	}
 
 	private void shootCrash(Shoot shoot, Enemy enemy) {
-		Rectangle rectangleEnemy = new Rectangle(enemy.getPositionX(), enemy.getPositionY(), ConstantList.ENEMY_SIZE,
-				ConstantList.ENEMY_SIZE);
+		Rectangle rectangleEnemy = new Rectangle(enemy.getPositionX(), enemy.getPositionY(),
+				enemy.getEnemyType().getSize(), enemy.getEnemyType().getSize());
 		Rectangle rectangleShoot = new Rectangle(shoot.getPositionX(), shoot.getPositionY(), ConstantList.ATTACK_SIZE,
 				ConstantList.ATTACK_SIZE);
 		if (rectangleShoot.intersects(rectangleEnemy)) {
 			shoot.stop();
 			enemy.lessLife();
+		}
+	}
+
+	public void shootEnemy(int x, int y) {
+		for (int i = 0; i < enemyList.size(); i++) {
+			Enemy enemy = enemyList.get(i);
+			if ((enemy.getPositionX() <= x && x <= enemy.getPositionX() + enemy.getEnemyType().getSize())
+					&& (enemy.getPositionY() <= y && y <= enemy.getPositionY() + enemy.getEnemyType().getSize())) {
+				enemy.lessLife();
+				if (enemy.getLife() == 0) {
+					enemyList.remove(i);
+					if (enemy.getEnemyType().getType().equals(EnemyType.MASTER.getType())) {
+						stop();
+					}
+				}
+			}
 		}
 	}
 
@@ -137,10 +157,10 @@ public class ManagerGame extends MyThread {
 			shotEnemy();
 			enemyListMove();
 			deleteAttack();
-			crash = isStop();
 			if (enemyList.isEmpty()) {
-
+				enemyList.add(new Enemy(EnemyType.MASTER));
 			}
+			crash = isStop();
 		}
 	}
 

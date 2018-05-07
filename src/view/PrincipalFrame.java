@@ -61,13 +61,10 @@ public class PrincipalFrame extends JFrame {
 	}
 
 	public void gameOver() {
-		JDialog jDialog = new JDialog();
-		jDialog.setIconImage(new ImageIcon(getClass().getResource(ConstantList.ICON_GAME)).getImage());
-		ImageIcon imageIcon = new ImageIcon(getClass().getResource(ConstantList.GAME_OVER_IMG));
-		jDialog.setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
-		jDialog.setLocationRelativeTo(null);
-		jDialog.add(new JLabel(imageIcon));
-		jDialog.setVisible(true);
+		remove(panelGame);
+		JLabel labelGameOver = new JLabel(new ImageIcon(getClass().getResource(ConstantList.GAME_OVER_IMG)));
+		add(labelGameOver, BorderLayout.CENTER);
+		revalidate();
 	}
 
 	public boolean lastGame() {

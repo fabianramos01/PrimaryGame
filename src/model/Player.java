@@ -44,8 +44,12 @@ public class Player {
 		}
 	}
 	
-	public void lessLife() {
+	public void lessLifeEne() {
 		life -= ConstantList.LIFE_LESS_PLAYER;
+	}
+	
+	public void lessLifeEneM() {
+		life -= ConstantList.LIFE_LESS_M_PLAYER;
 	}
 	
 	public int getPositionX() {

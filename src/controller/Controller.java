@@ -62,7 +62,11 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 				}
 				principalFrame.repaintGame(managerGame.getPlayer().getLife());
 				if (managerGame.isStop()) {
-					principalFrame.gameOver();
+					if (managerGame.getEnemyList().isEmpty()) {
+						
+					} else {
+						principalFrame.gameOver();
+					}
 					timer.stop();
 				}
 			}
@@ -97,7 +101,9 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent m) {
-		managerGame.newShoot(m.getX(), m.getY(), principalFrame.getSize().width, principalFrame.getSize().height);
+		// managerGame.newShoot(m.getX(), m.getY(), principalFrame.getSize().width,
+		// principalFrame.getSize().height);
+		managerGame.shootEnemy(m.getX(), m.getY());
 	}
 
 	@Override

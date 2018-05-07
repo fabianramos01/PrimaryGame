@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import controller.ConstantList;
 import controller.Controller;
 import model.Enemy;
+import model.EnemyType;
 import model.Player;
 import model.Shoot;
 
@@ -19,6 +20,7 @@ public class PanelGame extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private ImageIcon playerImage;
 	private ImageIcon enemyImage;
+	private ImageIcon enemyMImage;
 	private ImageIcon shootImage;
 	private Player player;
 	private ArrayList<Enemy> enemyList;
@@ -35,6 +37,8 @@ public class PanelGame extends JPanel {
 		playerImage = UtilityList.scaledImage(playerImage, ConstantList.PLAYER_SIZE_IMG, ConstantList.PLAYER_SIZE_IMG);
 		enemyImage = new ImageIcon(getClass().getResource(ConstantList.ENEMY_IMG));
 		enemyImage = UtilityList.scaledImage(enemyImage, ConstantList.ENEMY_SIZE_IMG, ConstantList.ENEMY_SIZE_IMG);
+		enemyMImage = new ImageIcon(getClass().getResource(ConstantList.MASTER_ENEMY_IMG));
+		enemyMImage = UtilityList.scaledImage(enemyMImage, ConstantList.ENEMY_M_SIZE_IMG, ConstantList.ENEMY_M_SIZE_IMG);
 		shootImage = new ImageIcon(getClass().getResource(ConstantList.ATTACK_IMG));
 		shootImage = UtilityList.scaledImage(shootImage, ConstantList.ATTACK_SIZE_IMG, ConstantList.ATTACK_SIZE_IMG);
 		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
@@ -46,7 +50,11 @@ public class PanelGame extends JPanel {
 		super.paint(g);
 		g.drawImage(playerImage.getImage(), player.getPositionX(), player.getPositionY(), null);
 		for (Enemy enemy : enemyList) {
-			g.drawImage(enemyImage.getImage(), enemy.getPositionX(), enemy.getPositionY(), null);
+			if (enemy.getEnemyType().getType().equals(EnemyType.NORMAL.getType())) {
+				g.drawImage(enemyImage.getImage(), enemy.getPositionX(), enemy.getPositionY(), null);
+			} else {
+				g.drawImage(enemyMImage.getImage(), enemy.getPositionX(), enemy.getPositionY(), null);				
+			}
 		}
 		for (Shoot shoot : shootList) {
 			g.drawImage(shootImage.getImage(), shoot.getPositionX(), shoot.getPositionY(), null);

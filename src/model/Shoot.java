@@ -44,6 +44,10 @@ public class Shoot extends MyThread {
 		return positionY;
 	}
 	
+	public int getHeightArea() {
+		return heightArea;
+	}
+	
 	@Override
 	public void execute() {
 		if (positionX + ConstantList.ATTACK_SIZE_IMG < widthArea) {
