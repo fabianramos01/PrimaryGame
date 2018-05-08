@@ -32,7 +32,7 @@ public class Controller implements KeyListener, MouseListener, ActionListener {
 			time = FileManager.loadTime();
 			managerGame.loadGame(FileManager.loadPlayer(), FileManager.loadEnemy(), FileManager.loadShoot());
 		} else {
-			managerGame.enemyList(6);
+			managerGame.enemyList(3);
 		}
 		save();
 	}
